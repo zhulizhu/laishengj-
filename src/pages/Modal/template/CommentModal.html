@@ -1,0 +1,30 @@
+<ion-content class="modal-bg">
+
+  <div class="cover-center project-center">
+    <div class="del" (click)="close()">×</div>
+    <h3>评价</h3>
+    <br>
+    <ion-list class="selec">
+      <ion-item>
+        <ion-label>评分</ion-label>
+        <ion-input [(ngModel)]="grade" type="number" placeholder="请输入评分例如：1-100"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-list class="selec">
+      <ion-item>
+        <ion-label>等级</ion-label>
+        <ion-select [(ngModel)]="level" cancelText="取消" okText="确定">
+          <ion-option value="2" selected="true">优</ion-option>
+          <ion-option value="1">良</ion-option>
+          <ion-option value="0">差</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <h3>评语</h3>
+    <br>
+    <ion-textarea [(ngModel)]="content[0]" placeholder="写下你对本次健身服务的感受吧，对他人帮助很大哦！"></ion-textarea>
+    <ion-list>
+      <button full ion-button (click)="sure()">确定</button>
+    </ion-list>
+  </div>
+</ion-content>

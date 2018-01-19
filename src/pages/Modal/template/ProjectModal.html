@@ -1,0 +1,67 @@
+<ion-content class="modal-bg">
+
+  <div class="cover-center project-center">
+    <div class="del" (click)="close()">×</div>
+    <h3>部位</h3>
+    <ion-list radio-group [(ngModel)]="space" (ionChange)="spaceAction()">
+      <ion-item *ngFor="let item of lists">
+        <ion-label>{{item.name}}</ion-label>
+        <ion-radio item-left value="{{item.id}}、{{item.name}}"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <h3>动作</h3>
+    <ion-list *ngIf="!actionLists.length">
+      <ion-item>
+        <ion-label>暂无该部位动作</ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-list radio-group [(ngModel)]="action" *ngIf="actionLists.length">
+      <ion-item *ngFor="let item of actionLists">
+        <ion-label>{{item.name}}</ion-label>
+        <ion-radio item-left value="{{item.id}}、{{item.name}}"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <h3>负重标准</h3>
+    <ion-list >
+      <ion-item>
+        <ion-select [(ngModel)]="content[0].weight" cancelText="取消" okText="确定">
+          <ion-option value="0" selected="true">空杆</ion-option>
+          <ion-option value="1">1kg</ion-option>
+          <ion-option value="5">5kg</ion-option>
+          <ion-option value="7.5">7.5kg</ion-option>
+          <ion-option value="10" >10kg</ion-option>
+          <ion-option value="15">15kg</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-list class="selec">
+      <ion-item>
+        <ion-label>组数</ion-label>
+        <ion-select [(ngModel)]="content[0].group" cancelText="取消" okText="确定">
+          <ion-option value="1" selected="true">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="4">4</ion-option>
+          <ion-option value="6">6</ion-option>
+          <ion-option value="8" >8</ion-option>
+          <ion-option value="10">10</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-list class="selec">
+      <ion-item>
+        <ion-label>每组数量</ion-label>
+        <ion-select [(ngModel)]="content[0].number" cancelText="取消" okText="确定">
+          <ion-option value="10" selected="true">10</ion-option>
+          <ion-option value="20">20</ion-option>
+          <ion-option value="40">40</ion-option>
+          <ion-option value="60">60</ion-option>
+          <ion-option value="80" >80</ion-option>
+          <ion-option value="100">100</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <button full ion-button (click)="sure()">确定</button>
+    </ion-list>
+  </div>
+</ion-content>

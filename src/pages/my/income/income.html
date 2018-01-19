@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-navbar >
+    <ion-title>我的收入</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="all-content" >
+  <div class="account-top">
+    <ion-list >
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="{{avatar?avatar:'assets/img/attr.png'}}">
+        </ion-avatar>
+        <ion-avatar item-end (click)="problem()">
+        <img src="assets/img/shuoming.png">
+        </ion-avatar>
+      </ion-item>
+      <ion-item>
+        <h2>{{items.salary?items.salary:'0'}}</h2>
+        <p>当月收入（元）</p>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col">
+            <p>{{items.attendance?items.attendance:'0'}}</p>
+            <p>当月考勤(天)</p>
+          </div>
+          <div class="col">
+            <p>{{items.course.length?items.course.length:'0'}}</p>
+            <p>当月课时(课时)</p>
+          </div>
+          <div class="col">
+            <p>{{items.salary?items.salary:'0'}}</p>
+            <p>累积收入</p>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div class="account" style="position: relative">
+    <ion-datetime  displayFormat="YYYY-MM" min="2017-08"
+                   doneText="确定" cancelText="取消" [(ngModel)]="myDate" (ionChange)="changeTime(myDate)"></ion-datetime>
+
+    <ion-list>
+      <ion-item>
+        <div>
+          <h2>收益明细</h2>
+          <p>{{today*1000|date:'yyyy年MM月'}}</p>
+        </div>
+        <ion-avatar item-end>
+          <img src="{{'assets/img/zhanghumingxi.png'}}">
+        </ion-avatar>
+      </ion-item>
+    </ion-list>
+    <ul class="list-group" >
+      <li class="list-group-item" *ngFor="let item of items.course">
+        <div class="top">
+          <div class="net"></div>
+          <span>+</span>
+          <span>￥{{item.salary?item.salary:'0.00'}}</span>
+          <span>(1课时)</span>
+        </div>
+        <div class="mx">
+          <p>{{item.title}}</p>
+          <p><span>{{item.course_starttime*1000|date:'yyyy-MM-dd'}} </span>
+            <span> {{item.course_starttime*1000|date:'HH:mm'}}-{{item.course_endtime*1000|date:'HH:mm'}}</span>
+          </p>
+        </div>
+      </li>
+    </ul>
+    <p class="remind-not" *ngIf="!items.course.length">暂无课程</p>
+  </div>
+
+</ion-content>
+
+
+
+

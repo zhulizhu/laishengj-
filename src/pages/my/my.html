@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-navbar >
+    <ion-title>我的</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="all-content" >
+  <ion-list class="header">
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="{{self.info.avatar?self.info.avatar:''}}">
+      </ion-avatar>
+      <ion-label class="tex">{{self.info.realname?self.info.realname:self.info.nickname_wechat}}</ion-label>
+      <ion-input  placeholder="请输入您的个性签名" (ionBlur)="alterSignature()" [(ngModel)]="signature" type="text"></ion-input>
+    </ion-item>
+  </ion-list>
+  <div >
+    <ion-card>
+      <ion-card-content>
+        <div id="cov">
+          <div>
+            <h2>{{self.salary?self.salary:'0.00'}}<span>元</span></h2>
+            <!--<p>8月10日-8月20日</p>-->
+          </div>
+          <svg width="160" id="svg6" height="160" viewbox="0 0 160 160">
+            <circle cx="80" cy="80" r="70" class="circle1" stroke-width="8" stroke-linecap="round" stroke="#326789" fill="none"
+                    transform="matrix(0,-1,1,0,0,160)"></circle>
+            <circle cx="80" cy="80" r="70" class="circle2" stroke-width="8" style="" stroke-linecap="round" stroke="#00afff" fill="none"
+                    transform="matrix(0,-1,1,0,0,160)"
+                    stroke-dasharray="0 100"></circle>
+          </svg>
+        </div>
+        <button ion-button >当月收入</button>
+      </ion-card-content>
+    </ion-card>
+    <div class="row">
+      <div class="col">
+        <h2>{{self.course?self.course:'0'}}</h2>
+        <p>累计课时/课时</p>
+      </div>
+      <div class="col">
+        <h2>{{self.courese_time?self.courese_time:'0'}}</h2>
+        <p>累计时间/分钟</p>
+      </div>
+      <div class="col">
+        <h2>{{self.attendance}}</h2>
+        <p>累积考勤/天</p>
+      </div>
+    </div>
+
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let item of items" (click)="itemSelected(item.id)">
+      <div>
+        <div class="item-img">
+          <img src="{{item.icon}}" alt="">
+        </div>
+        <div class="item-right" >
+          <p>{{item.name}}</p>
+          <span><ion-icon name="arrow-forward"></ion-icon></span>
+        </div>
+      </div>
+    </li>
+  </ul>
+</ion-content>

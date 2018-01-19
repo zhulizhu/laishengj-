@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-navbar >
+    <ion-title>初始资料</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="all-content">
+
+<ion-list>
+  <ion-item >
+    <ion-icon item-start>
+      <img src="assets/img/jbzl.png">
+    </ion-icon>
+    <h2>基本资料</h2>
+    <div class="row">
+      <div class="col">
+        <p>{{items.sex==0?'男':'女'}}</p>
+        <p>性别</p>
+      </div>
+      <div class="col">
+        <p>{{items.year}}</p>
+        <p>年龄</p>
+      </div>
+      <div class="col">
+        <p>{{items.height}}cm</p>
+        <p>身高</p>
+      </div>
+      <div class="col">
+        <p>{{items.weight}}kg</p>
+        <p>体重</p>
+      </div>
+    </div>
+  </ion-item>
+  <ion-item >
+    <ion-icon item-start>
+      <img src="assets/img/stcf.png">
+    </ion-icon>
+    <h2>身体成分</h2>
+    <div class="row">
+      <div class="col">
+        <p>{{items.skeletal_muscle?items.skeletal_muscle:'0'}}kg</p>
+        <p>骨骼肌</p>
+      </div>
+      <div class="col">
+        <p>{{items.fat}}kg</p>
+        <p>体脂肪</p>
+      </div>
+      <div class="col">
+        <p>{{items.weight}}kg</p>
+        <p>水分含量</p>
+      </div>
+      <div class="col">
+        <p>{{items.leanWeight}}kg</p>
+        <p>去脂体重</p>
+      </div>
+    </div>
+  </ion-item>
+  <ion-item >
+    <ion-icon item-start>
+      <img src="assets/img/fpfx.png">
+    </ion-icon>
+    <h2>肥胖分析</h2>
+    <div class="row">
+      <div class="col">
+        <p>{{items.massIndex?items.massIndex:0}}</p>
+        <p>质量指数</p>
+      </div>
+      <div class="col">
+        <p>{{items.weightPercent}}</p>
+        <p>体脂百分比</p>
+      </div>
+      <div class="col">
+        <p>{{items.waist}}</p>
+        <p>腰臀比</p>
+      </div>
+      <div class="col">
+        <p>{{items.basic?items.basic:0}}kcal</p>
+        <p>基础代谢</p>
+      </div>
+    </div>
+  </ion-item>
+  <ion-item>
+    <ion-icon item-start>
+      <img src="assets/img/jsyw.png">
+    </ion-icon>
+    <h2>健身愿望</h2>
+    <div class="row">
+      <div class="col">
+        <p>{{items.muscle?items.muscle:0}}kg</p>
+        <p>肌肉控制</p>
+      </div>
+      <div class="col">
+        <p>{{items.fatControl?items.fatControl:0}}kg</p>
+        <p>脂肪控制</p>
+      </div>
+    </div>
+  </ion-item>
+</ion-list>
+</ion-content>
+

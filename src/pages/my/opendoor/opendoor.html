@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar >
+    <ion-title>开门考勤</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="all-content">
+  <div class="top">
+    <button class="btn" (click)="openDoor()">开门</button>
+  </div>
+
+    <ion-grid>
+      <h3>考勤记录</h3>
+      <div  *ngFor="let items of list">
+        <ion-row  *ngFor="let item of items.record">
+          <ion-col col-4>
+            <!--<span class="{{item.status==0?'open-false':'open-true'}}">失败</span>-->
+            <ion-item>
+              <span class="{{item.status==0?'open-false':'open-true'}}">{{item.status==0?'失败':'成功'}}</span>
+              <p>{{item.week}}</p>
+            </ion-item>
+          </ion-col>
+          <ion-col col-4>
+            <ion-item >
+              <p >{{item.createtime*1000|date:'yyyy-MM-dd'}}</p>
+            </ion-item>
+          </ion-col>
+          <ion-col col-4>
+            <ion-item>
+              <p>{{item.createtime*1000|date:'HH:mm:ss'}}</p>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <p *ngIf="!items.record.length">暂无考勤记录！</p>
+      </div>
+    </ion-grid>
+
+</ion-content>
+
+
+

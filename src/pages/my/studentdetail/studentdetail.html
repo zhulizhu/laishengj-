@@ -1,0 +1,142 @@
+<ion-header>
+  <ion-navbar >
+    <ion-title>学员资料</ion-title>
+  </ion-navbar>
+  <ion-segment [(ngModel)]="info" id="monitor" (ionChange)="percentA(items.static.total,info=='all'?items.stage_times:info=='payment'?items.second_stage_times:items.third_stage_times)">
+    <ion-segment-button value="all">
+      <span>适应阶段</span>
+    </ion-segment-button>
+    <ion-segment-button value="payment">
+      <span>提升阶段</span>
+    </ion-segment-button>
+    <ion-segment-button value="use">
+      <span>巩固阶段</span>
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content class="all-content" [ngSwitch]="info">
+  <div>
+    <ion-card (swipe)="swipeEvent($event)">
+      <ion-card-content>
+        <div id="cov">
+          <div>
+            <h2>{{items.static.total}}/{{info=='all'?items.stage_times:info=='payment'?items.second_stage_times:items.third_stage_times}}<span>课时</span></h2>
+            <!--<p>8月10日-8月20日</p>-->
+          </div>
+          <svg width="160" id="svg6" height="160" viewbox="0 0 160 160">
+            <circle cx="80" cy="80" r="70" class="circle1" stroke-width="8" stroke-linecap="round" stroke="#326789" fill="none"
+                    transform="matrix(0,-1,1,0,0,160)"></circle>
+            <circle cx="80" cy="80" r="70" class="circle2" stroke-width="8" style="" stroke-linecap="round" stroke="#00afff" fill="none"
+                    transform="matrix(0,-1,1,0,0,160)"
+                    stroke-dasharray="0 100"></circle>
+          </svg>
+        </div>
+        <button ion-button>{{info=='all'?'适应阶段':info=='payment'?'提升阶段':'巩固阶段'}}</button>
+      </ion-card-content>
+    </ion-card>
+    <h3 class="ziliao dz rili infor" >
+      <span>初始资料</span>
+    </h3>
+    <div *ngIf="!dataJson" class="row row1 row2">
+      <div class="col"><p>学员没有编辑，通知学员编辑</p></div>
+    </div>
+    <div *ngIf="dataJson">
+      <div class="row row1 row2" (click)="inforDetail(items.data)">
+        <div class="col">
+          <p><span>{{items.data.sex==0?'男':'女'}}</span></p>
+          <p>性别</p>
+        </div>
+        <div class="col">
+          <p><span>{{items.data.height}}cm</span></p>
+          <p>身高</p>
+        </div>
+        <div class="col">
+          <p><span>{{items.data.weight}}kg</span></p>
+          <p>体重</p>
+        </div>
+        <div class="col">
+          <p><span>{{items.data.year}}</span></p>
+          <p>年龄</p>
+        </div>
+        <div class="col">
+          <img src="assets/img/next.png">
+        </div>
+      </div>
+    </div>
+
+    <h3 class="ziliao dz rili">
+      <span>{{today*1000|date:'yyyy年MM月'}}</span>
+      <span style="float: right" >
+      <img src="assets/img/rili.png"></span>
+      <ion-datetime  displayFormat="YYYY-MM" min="2017-08"
+                     doneText="确定" cancelText="取消" [(ngModel)]="myDate" (ionChange)="changeTime(myDate)"></ion-datetime>
+
+    </h3>
+    <h3 class="ziliao dz"><span><img src="assets/img/ziliao1.png"></span>健身动作资料</h3>
+    <div class="row row1">
+      <div class="col">
+        <p><span>{{items.static.time}}</span></p>
+        <p>健身时间(分)</p>
+      </div>
+      <div class="col">
+        <p><span>{{items.static.total}}</span></p>
+        <p>健身次数(次)</p>
+      </div>
+      <div class="col">
+        <p><span>{{items.grade?items.grade:'0'}}</span></p>
+        <p>评分(平均分)</p>
+      </div>
+    </div>
+    <h3 class="dz" (click)="moreAction()">
+      <img src="assets/img/jsdz.png">
+      <span>健身动作</span>
+      <span class="more" >查看更多 <ion-icon name="arrow-forward"></ion-icon></span>
+
+    </h3>
+    <table>
+      <tr>
+        <th>部位</th>
+        <th>动作</th>
+        <th>组数</th>
+        <th>负重标准</th>
+        <th>每组数量</th>
+      </tr>
+
+      <tr class="{{builder.length?'show':'hide'}}" *ngFor="let list of builder">
+        <td>{{list.space_name}}</td>
+        <td>{{list.action_name}}</td>
+        <td>{{list.group}}</td>
+        <td>{{list.weight}}kg</td>
+        <td>{{list.number}}</td>
+      </tr>
+    </table>
+    <p class="no" *ngIf="builder.length==0">快去给该学员添加东西吧</p>
+    <h3 class="dz dz1" (click)="moreRemark()">
+      <img src="assets/img/jlpy.png">
+      <span>教练评语</span>
+      <span class="more" >查看更多 <ion-icon name="arrow-forward"></ion-icon></span>
+    </h3>
+    <ion-list *ngIf="comment.length">
+      <div *ngFor="let items of comment">
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="{{avatar?avatar:'assets/img/attr.png'}}">
+          </ion-avatar>
+          <h2>{{items.name?items.name:'匿名评论'}}</h2>
+          <h3>{{items.createtime*1000|date:'yyyy-MM-dd  HH:mm'}}</h3>
+          <div *ngFor="let item of items.content;let i=index">
+            <p *ngIf="i<1"><span>{{item?item:'0'}}</span></p>
+          </div>
+        </ion-item>
+      </div>
+    </ion-list>
+    <ion-list *ngIf="comment.length==0" class="">暂无评论</ion-list>
+  </div>
+
+
+
+</ion-content>
+
+
+

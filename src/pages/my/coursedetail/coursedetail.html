@@ -1,0 +1,132 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>课程详情</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="all-content">
+  <div class="courseInfor">
+    <div class="tile">
+      <div class="fx">课程信息</div>
+      <!--<div class="turn"></div>-->
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <div>
+          <div class="item-img">
+            <img src="assets/img/jianzhi.png" alt="">
+          </div>
+          <div class="item-right">
+            <p><span>{{items.course.title?items.course.title:'暂无'}}</span></p>
+          </div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div>
+          <div class="item-img">
+            <img src="assets/img/kejia.png" alt="">
+          </div>
+          <div class="item-right">
+            <p>￥{{param.price}}/节</p>
+          </div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div>
+          <div class="item-img">
+            <img src="assets/img/num.png" alt="">
+          </div>
+          <div class="item-right">
+            <p>授课方式: {{param.courseType==3?'自助':param.courseType==2?'团课':param.person>1?'私教(1V2)':'私教(1V1)'}}</p>
+          </div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div>
+          <div class="item-img">
+            <img src="assets/img/keshi.png" alt="">
+          </div>
+          <div class="item-right">
+            <p>
+              <span>{{course_starttime*1000|date:'yyyy-MM-dd'}}</span>
+              （<span>星期{{items.course.week}}</span>）<span class="time">
+              <span>{{course_starttime*1000|date:'HH:mm'}}</span> -
+              <span>{{course_endtime*1000|date:'HH:mm'}}</span>
+            </span>
+            </p>
+          </div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div>
+          <div class="item-img">
+            <img src="assets/img/dizhi.png" alt="">
+          </div>
+          <div class="item-right">
+            <p>{{items.store.address}}</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="studentInfor" >
+    <div class="tile">
+      <div class="fx">学员信息</div>
+      <!--<div class="turn"></div>-->
+    </div>
+    <div class="student-list">
+      <ion-list>
+        <div *ngFor="let item of member" class="{{item?'show':'hide'}} ">
+          <ion-item class="order" (click)="writeInfor(course_starttime,course_endtime,items.course.title,item)">
+            <ion-thumbnail item-start>
+              <img src="{{item.avatar?item.avatar:'assets/img/attr.png'}}">
+              <div class="cover"></div>
+            </ion-thumbnail>
+            <h2>{{item.realname?item.realname:item.nickname_wechat?item.nickname_wechat:item.nickname}}</h2>
+            <span>{{item.level.levelname}}</span>
+            <!--<p>-->
+              <!--<span>性别：男 年龄：27岁 体重：60kg</span>-->
+            <!--</p>-->
+            <p *ngIf="item.data.length==0">
+              <span>学员没有编辑，通知学员编辑</span>
+            </p>
+            <p *ngIf="item.data.length!=0">
+            <span>
+            性别：{{item.data.sex==0?'男':'女'}} 年龄：{{item.data.year?item.data.year:'0'}}岁 体重：{{item.data.weight?item.data.weight:'无'}}kg
+            </span>
+            </p>
+          </ion-item>
+        </div>
+      </ion-list>
+    </div>
+    <p class="no" *ngIf="!member.length">暂无学员信息</p>
+  </div>
+  <div class="evalInfor" *ngIf="tip==2">
+    <div class="tile">
+      <div class="fx">学员评论</div>
+      <!--<div class="turn"></div>-->
+    </div>
+    <ion-list *ngIf="comment.length">
+      <ion-item *ngFor="let item of comment">
+        <ion-avatar item-start>
+          <img src="{{item.headimgurl&&item.display!=1?item.headimgurl:'assets/img/attr.png'}}">
+        </ion-avatar>
+        <h2 *ngIf="item.display==1">匿名评论</h2>
+        <h2 *ngIf="item.display==0">{{item.nickname}}</h2>
+        <h3>{{item.createtime*1000|date:'yyyy-MM-dd  HH:mm'}}</h3>
+        <p>{{item.content}}</p>
+      </ion-item>
+    </ion-list>
+    <p class="no" *ngIf="!comment.length">暂无任何评论</p>
+  </div>
+
+</ion-content>
+<ion-footer *ngIf="tip==1">
+  <ion-toolbar>
+    <!--<button ion-button full (click)="start(course_starttime,param.isstart)">{{param.isstart==0?'开始上课':'正在上课'}}</button>-->
+    <button ion-button full (click)="start(course_starttime,course_endtime,param.isstart)">{{doing}}</button>
+  </ion-toolbar>
+</ion-footer>
+
+
+

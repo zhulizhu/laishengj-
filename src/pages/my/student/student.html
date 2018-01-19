@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar >
+    <ion-title>我的学员</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="all-content">
+
+  <div  class="student-list" *ngIf="lists.length">
+    <ion-list>
+      <div *ngFor="let list of lists;" (click)="studentDetail(list.openid)">
+        <ion-item class="order" >
+          <ion-thumbnail item-start>
+            <img src="{{list.avatar?list.avatar:list.avatar_wechat?list.avatar_wechat:'assets/img/attr.png'}}">
+            <div class="cover"></div>
+          </ion-thumbnail>
+          <h2>{{list.realname?list.realname:list.nickname_wechat?list.nickname_wechat:list.nickname}}</h2>
+          <span>{{list.level.levelname}}</span>
+          <p *ngIf="list.data.length==0">
+            <span>学员没有编辑，通知学员编辑</span>
+          </p>
+          <p *ngIf="list.data.length!=0">
+            <span>
+              性别：{{list.data.sex==0?'男':'女'}}&nbsp;|&nbsp;
+              年龄：{{list.data.year?list.data.year:'0'}}岁&nbsp;|&nbsp;
+              体重：{{list.data.weight?list.data.weight:'无'}}kg
+            </span>
+          </p>
+        </ion-item>
+      </div>
+    </ion-list>
+
+  </div>
+  <p class="remind-not" *ngIf="!lists.length">暂无学员</p>
+</ion-content>
+
+
+

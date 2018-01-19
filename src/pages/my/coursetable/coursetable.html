@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-navbar >
+    <ion-title>我的课表</ion-title>
+  </ion-navbar>
+  <ion-segment [(ngModel)]="info1" >
+    <ion-segment-button value="order">
+      <span>预约课程</span>
+    </ion-segment-button>
+    <ion-segment-button value="past">
+      <span>往期课程</span>
+    </ion-segment-button>
+    <!--<ion-segment-button value="student" (click)="orderStudy()">-->
+      <!--<span>预约学员</span>-->
+    <!--</ion-segment-button>-->
+  </ion-segment>
+</ion-header>
+
+<ion-content class="all-content" [ngSwitch]="info1">
+  <div *ngSwitchCase="'order'" class="list-order">
+    <ion-segment (swipe)="swipeEvent($event)" [(ngModel)]="info" id="monitor">
+      <ion-segment-button *ngFor="let item of week" value="base_{{item.id}}"
+                          (click)="getTeacherList(item)">
+        <div class="monitor-time">
+          <!--<p>{{item.time}}</p>-->
+          <!--<p *ngIf="item.id==0">今天</p>-->
+          <p>星期{{item.week}}</p>
+        </div>
+        <!--<div class="top" >-->
+          <!--<div class="tile">-->
+            <!--<div class="fx">{{item.time}}</div>-->
+            <!--&lt;!&ndash;<div class="turn"><div></div></div>&ndash;&gt;-->
+          <!--</div>-->
+        <!--</div>-->
+        <p class="week">{{item.week}}</p>
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-list no-lines class="list-top" *ngIf="itemx">
+      <div class="top" >
+        <div class="tile">
+          <div class="fx">{{dayLine}}</div>
+        </div>
+      </div>
+      <div *ngFor="let item of itemx" class="listTime">
+        <ion-item class="order" (click)="coursDetail(item.id,item.course_type,item.marketprice,item.marketprice1,item.marketprice2,item.person,item.isstart,1)">
+          <h2>课程时间：<span>{{item.course_starttime*1000|date:'HH:mm'}}-{{item.course_endtime*1000|date:'HH:mm'}}</span></h2>
+          <p>课程：<span>{{item.title}}<span *ngIf="item.course_type==1">({{item.person==2?'1V2':'1V1'}})</span></span></p>
+          <p>地址：{{item.address?item.address:'暂无'}}</p>
+        </ion-item>
+        <p></p>
+        <ion-item>
+          <button ion-button item-end outline (click)="start(item)">{{item.isstart==0?'开始上课':'正在上课'}}</button>
+        </ion-item>
+      </div>
+
+        <!--<ion-infinite-scroll  (ionInfinite)="doInfinite($event)">-->
+          <!--<ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">-->
+          <!--</ion-infinite-scroll-content>-->
+        <!--</ion-infinite-scroll>-->
+
+      <p class="remind-not" *ngIf="!list.length">再无预约课程</p>
+    </ion-list>
+  </div>
+
+  <div *ngSwitchCase="'past'" class="past-list">
+    <ion-list no-lines class="list-top" *ngIf="itemOld.length">
+      <div *ngFor="let item of itemOld">
+        <ion-item class="order" (click)="coursDetail(item.id,item.course_type,item.marketprice,item.marketprice1,item.marketprice2,item.person,item.isstart,2)">
+          <ion-thumbnail item-start>
+            <img src="{{item.thumb?item.thumb:'assets/img/attr.png'}}">
+            <div></div>
+          </ion-thumbnail>
+          <h2 style="margin:10px 0 2px;">课程时间：<span>{{item.course_starttime*1000|date:'HH:mm'}}-{{item.course_endtime*1000|date:'HH:mm'}}</span></h2>
+          <p>课程：<span>{{item.title}}<span *ngIf="item.course_type==1">({{item.person==2?'1V2':'1V1'}})</span></span></p>
+          <p>地址：{{item.address?item.address:'暂无'}}</p>
+        </ion-item>
+        <p></p>
+        <ion-item>
+          <button ion-button item-end outline (click)="deletClass(item)">删除课程</button>
+        </ion-item>
+      </div>
+      <p class="remind-not" *ngIf="!itemOld.length">再无预约课程</p>
+    </ion-list>
+  </div>
+</ion-content>
+
+
+

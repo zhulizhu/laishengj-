@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar >
+    <ion-title>健身动作</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="all-content">
+  <table>
+    <tr>
+      <th>部位</th><th>动作</th><th>组数</th><th>负重标准</th><th>每组数量</th>
+    </tr>
+
+    <tr *ngFor="let list of builder;let i=index">
+      <td >{{list.space_name}}</td>
+      <td>{{list.action_name}}</td>
+      <td>{{list.group}}</td>
+      <td>{{list.weight}}kg</td>
+      <td>{{list.number}}</td>
+    </tr>
+  </table>
+
+  <p  *ngIf="builder.length==0" class="remind-not">快去给该学员添加东西吧</p>
+</ion-content>
+
+
+

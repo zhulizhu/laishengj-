@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>教练评语</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="all-content">
+
+  <p *ngIf="!comment.length" class="remind-not">暂无评论</p>
+  <ion-list *ngIf="comment.length">
+    <div *ngFor="let items of comment">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="{{avatar?avatar:'assets/img/attr.png'}}">
+        </ion-avatar>
+        <h2>{{items.name?items.name:'匿名'}}</h2>
+        <h3>{{items.createtime*1000|date:'yyyy-MM-dd HH:mm'}}</h3>
+        <p *ngFor="let item of items.content;let i=index">
+          <span *ngIf="i>0" style="color:#00C2FF;">追加评论:</span>{{item?item:'无'}}
+        </p>
+      </ion-item>
+    </div>
+  </ion-list>
+  <!--<p class="remind-not" *ngIf="!historyArray.length">暂无任何评论</p>-->
+</ion-content>
+
+
+

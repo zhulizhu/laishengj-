@@ -1,0 +1,117 @@
+<ion-header>
+  <ion-navbar >
+    <ion-title>我的评论</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="all-content" >
+  <div class="startInfor">
+    <h2 class="tile">好评度</h2>
+    <ul class="list-group" >
+      <li class="list-group-item" >
+        <div>
+         <p>
+           <span *ngFor="let start of aver">
+             <img  src="{{start.src1}}">
+           </span>
+         </p>
+          <h2>综合好评度</h2>
+        </div>
+      </li>
+      <li class="list-group-item" >
+        <div>
+          <div class="item-img">
+            <p>服务评价</p>
+          </div>
+          <div class="item-right" >
+           <span *ngFor="let start1 of lev1">
+             <img  src="{{start1.src1}}">
+           </span>
+          </div>
+        </div>
+      </li>
+      <li class="list-group-item" >
+        <div>
+          <div class="item-img">
+            <p>健身课程</p>
+          </div>
+          <div class="item-right" >
+           <span *ngFor="let start2 of lev2">
+             <img  src="{{start2.src1}}">
+           </span>
+          </div>
+        </div>
+      </li>
+      <li class="list-group-item" >
+        <div>
+          <div class="item-img">
+            <p>健身环境</p>
+          </div>
+          <div class="item-right" >
+          <span *ngFor="let start3 of lev3">
+             <img  src="{{start3.src1}}">
+           </span>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="evalInfor" >
+    <div class="student">
+      <h2>学员评语</h2>
+      <ion-segment [(ngModel)]="info" id="monitor">
+        <ion-segment-button value="all">
+          <span>全部</span>
+        </ion-segment-button>
+        <ion-segment-button value="good-eval">
+          <span>好评</span>
+        </ion-segment-button>
+        <ion-segment-button value="bad-eval">
+          <span>差评</span>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+
+    <div class="eval-cont" [ngSwitch]="info">
+      <ion-list *ngSwitchCase="'all'">
+        <ion-item *ngFor="let item of list">
+          <ion-avatar item-start>
+            <img src="{{item.display!=1?item.headimgurl:'assets/img/attr.png'}}">
+          </ion-avatar>
+          <h2>{{item.display==1?'匿名评论':item.nickname}}</h2>
+          <h3>{{item.createtime*1000|date:'yyyy-MM-dd HH:mm'}}</h3>
+          <p>{{item.content}}</p>
+        </ion-item>
+        <p *ngIf="!list.length" class="remind-not">暂无评论列表</p>
+      </ion-list>
+      <ion-list *ngSwitchCase="'good-eval'">
+        <ion-item *ngFor="let itemx of goodGrade">
+          <ion-avatar item-start>
+            <img src="{{itemx.display!=1?itemx.headimgurl:'assets/img/attr.png'}}">
+          </ion-avatar>
+          <h2>{{itemx.display==1?'匿名评论':itemx.nickname}}</h2>
+          <h3>{{itemx.createtime*1000|date:'yyyy-MM-dd HH:mm'}}</h3>
+          <p>{{itemx.content}}</p>
+        </ion-item>
+        <p *ngIf="!goodGrade.length" class="remind-not">暂无评论列表</p>
+      </ion-list>
+
+      <ion-list *ngSwitchCase="'bad-eval'">
+        <ion-item *ngFor="let items of badGrade">
+          <ion-avatar item-start>
+            <img src="{{items.display!=1?items.headimgurl:'assets/img/attr.png'}}">
+          </ion-avatar>
+          <h2>{{items.display==1?'匿名评论':items.nickname}}</h2>
+          <h3>{{items.createtime*1000|date:'yyyy-MM-dd HH:mm'}}</h3>
+          <p>{{items.content}}</p>
+        </ion-item>
+        <p *ngIf="!badGrade.length" class="remind-not">暂无评论列表</p>
+      </ion-list>
+    </div>
+
+  </div>
+
+</ion-content>
+
+
+

@@ -1,0 +1,124 @@
+<ion-header>
+  <ion-navbar >
+    <ion-title>填写资料</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="all-content" >
+  <div class="cont">
+    <div class="infor">
+      <img src="{{items.avatar?items.avatar:'assets/img/attr.png'}}">
+      <h2>{{items.realname?items.realname:items.nickname_wechat?items.nickname_wechat:items.nickname}}</h2>
+    </div>
+    <div class="stu-infor">
+     <h2>学员信息</h2>
+      <ul class="list-group" >
+        <li class="list-group-item" >
+          <div>
+            <div class="item-right" >
+              <p>昵&nbsp;&nbsp;&nbsp;&nbsp;称：<span>{{items.realname?items.realname:items.nickname_wechat?items.nickname_wechat:items.nickname}}</span></p>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item" >
+          <div>
+            <div class="item-right" >
+              <p>体&nbsp;&nbsp;&nbsp;&nbsp;重：<span>{{items.data.weight?items.data.weight:'0'}}kg</span></p>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item" >
+          <div>
+            <div class="item-right" >
+              <p>身&nbsp;&nbsp;&nbsp;&nbsp;高：<span>{{items.data.height?items.data.height:'0'}}cm</span></p>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item" >
+          <div>
+            <div class="item-right" >
+              <p>课&nbsp;&nbsp;&nbsp;&nbsp;程：<span>{{itemsC.title}}</span></p>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item" >
+          <div>
+            <div class="item-right" >
+              <p>时&nbsp;&nbsp;&nbsp;&nbsp;间：
+                <span>{{itemsC.course_starttime*1000|date:'yyyy-MM-dd'}}
+                  {{itemsC.course_starttime*1000|date:'HH:mm'}}-{{itemsC.course_endtime*1000|date:'HH:mm'}}
+                </span>
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="act-infor">
+      <h2>健身动作<button ion-button item-end outline>必填</button></h2>
+      <table>
+        <tr>
+          <th>部位</th><th>动作</th><th>组数</th><th>负重标准</th><th>每组数量</th>
+        </tr>
+
+        <tr *ngFor="let list of builder;let i=index">
+          <td >{{list.space_name}}</td>
+          <td>{{list.action_name}}</td>
+          <td>{{list.group}}</td>
+          <td>{{list.weight}}kg</td>
+          <td>{{list.number}}
+            <img src="assets/img/bianji.png" (click)="ProjeModal(builder,builderid,i)">
+          </td>
+        </tr>
+      </table>
+      <p class="no" *ngIf="builder.length==0">快去给该学员添加东西吧</p>
+      <div class="file" (click)="ProjeModal(builder,builderid,'null')">
+        <p><img src="assets/img/add1.png"><span>添加更多健身动作</span></p>
+      </div>
+      <!--没添加资料-->
+      <!--<div class="no-file" (click)="ProjeModal()">-->
+        <!--<h2>添加健身动作</h2>-->
+        <!--<img src="assets/img/add.png">-->
+      <!--</div>-->
+    </div>
+
+    <div class="act-infor">
+      <h2>健身评分<button ion-button item-end outline>必填</button></h2>
+      <div *ngIf="!contents" style="color: #fff">
+        暂无评论，快去给该学员评论吧
+      </div>
+      <div *ngIf="contents">
+        <!--<div class="grade" *ngFor="let item of comment;let i=index">-->
+          <!--<div *ngIf="i==0">-->
+            <!--<div><p>评分：</p><p>{{item.grade}}</p></div>-->
+            <!--<div><p>等级：</p><p>{{item.level==2?'优':item.level==1?'良':item.level==''?'暂无评论':'差'}}</p></div>-->
+            <!--<div><p>评语：</p><p>{{item.comment?item.comment:'本次课堂，健身动作基本到位，不足之处就是不够用心，为了自己的愿望还需得更加努'}}</p></div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <div class="grade">
+            <div><p>评分：</p><p>{{contents.grade ? contents.grade:'暂无评论'}}</p></div>
+            <div><p>等级：</p><p>{{contents.level==2?'优':contents.level==1?'良':contents.level==''?'暂无评论':'差'}}</p></div>
+            <div><p>评语：</p>
+              <p *ngFor="let item of contents.content;let i=index">
+                <span *ngIf="i==0">{{item?item:'本次课堂，健身动作基本到位，不足之处就是不够用心，为了自己的愿望还需得更加努'}}</span>
+              </p>
+            </div>
+        </div>
+      </div>
+      <div class="file" (click)="CommentModal(commentid,contents,items.avatar)">
+        <p><img src="assets/img/add1.png"><span>健身评语</span></p>
+      </div>
+      <!--没添加资料-->
+      <!--<div class="no-file" (click)="ProjeModal()">-->
+        <!--<h2>添加健身动作</h2>-->
+        <!--<img src="assets/img/add.png">-->
+      <!--</div>-->
+    </div>
+  </div>
+</ion-content>
+
+<!--<ion-footer>-->
+  <!--<button ion-button full large (click)="sure(content,grade,level,comment)">确定</button>-->
+<!--</ion-footer>-->
+
+
